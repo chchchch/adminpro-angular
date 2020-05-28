@@ -37,6 +37,8 @@
                 <img *ngIf="!imagenTemp" [src]="usuario.img | imagen" class="w150">
                 <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150">
 
+                <br><br>
+
                 <input (change)="seleccionImage( $event.target.files[0] )" type="file" name="" id="">
 
                 <br><br>

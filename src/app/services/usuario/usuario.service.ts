@@ -27,12 +27,12 @@ export class UsuarioService {
 
   cargarStorage() {
 
-    if( localStorage.getItem('token')){
+    if ( localStorage.getItem('token')){
 
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
     }else{
-      this.token ='';
+      this.token = '';
       this.usuario = null;
     }
   }
@@ -69,6 +69,11 @@ export class UsuarioService {
       );
   }
 
+
+  // =========================================================
+  // ACTUALIZAR USUARIO DESDE PERFIL
+  // =========================================================
+
   actualizarUsuario( usuario: Usuario ) {
 
     let url = URL_SERVICIOS + '/usuario/' + usuario._id;
@@ -76,28 +81,35 @@ export class UsuarioService {
     console.log(url);
 
     return this.http.put( url, usuario )
-    .pipe(map( (res:any) => {
-        this.guardarStorage( res.usuario._id, this.token, res.usuario)
-        Swal.fire({ title: 'Usuario actualizado', text: usuario.nombre, icon: 'success' });
-        return true;
+    .pipe(map( (res: any) => {
+
+      if ( usuario._id === this.usuario._id ){
+        this.guardarStorage( res.usuario._id, this.token, res.usuario);
+      }
+      Swal.fire({ title: 'Usuario actualizado', text: usuario.nombre, icon: 'success' });
+      return true;
     }));
-    
+
 
   }
 
+  // =========================================================
+  // CAMBIAR IMAGEN DESDE PERFIL
+  // =========================================================
 
-  cambiarImagen ( archivo: File, id: string ){
-    
+
+  cambiarImagen( archivo: File, id: string ){
+
     this._subirArchivoService.subirArchivo( archivo, 'usuarios', id)
-      .then( (resp:any) => {
+      .then( (resp: any) => {
           console.log(resp);
           this.usuario.img = resp.usuario.img;
           Swal.fire({ title: 'Imagen actualizada', text: this.usuario.nombre, icon: 'success' });
           this.guardarStorage( id, this.token, this.usuario );
       })
-      .catch( resp =>{
+      .catch( resp => {
         console.log(resp);
-      })
+      });
   }
 
 
@@ -174,5 +186,55 @@ login( usuario: Usuario, recuerdame: boolean= false ){
     );
 
 }
+
+
+// =========================================================
+// CARGAR USUARIOS EN MANTENEDOR DE USUARIOS
+// =========================================================
+
+cargarUsuarios( desde: number = 0 ){
+  const url = URL_SERVICIOS + '/usuario?desde=' + desde;
+
+  return this.http.get( url);
+}
+
+// =========================================================
+// BUSCAR USUARIOS PARA EL MANTENEDOR DE USUARIOS
+// =========================================================
+
+buscarUsuarios( termino: string ) {
+
+  const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
+  return this.http.get( url ).pipe(
+    map( (resp: any) => resp.usuarios )
+  );
+
+}
+
+// =========================================================
+// ELIMINAR USUARIO EN MANTENEDOR DE USAURIO
+// =========================================================
+
+
+borrarUsuario( id: string ){
+
+
+  let url = URL_SERVICIOS + '/usuario/' + id;
+  url += '?token=' + this.token;
+  return this.http.delete( url )
+  .pipe(
+    map( resp => {
+
+      Swal.fire(
+        'Eliminado!',
+        `El usuario ha sido eliminado`,
+        'success'
+      );
+      return true;
+    }
+    )
+  );
+}
+
 
 }
