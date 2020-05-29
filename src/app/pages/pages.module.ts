@@ -26,6 +26,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { MedicoComponent } from './medicos/medico/medico.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
         UsuariosComponent,
         HospitalesComponent,
         MedicosComponent,
-        ModalUploadComponent
+        ModalUploadComponent,
+        MedicoComponent
     ],
     exports: [
         DashboardComponent,

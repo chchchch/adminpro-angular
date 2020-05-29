@@ -1,1 +1,87 @@
-<p>hospitales works!</p>
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input #input (keyup)="buscarHospital( input.value )" type="text" class="form-control" placeholder="buscar hospital...">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br><i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-header">
+             
+                    
+                        <h3 class="card-title float-left">Usuarios Registrados (<small>{{totalRegistros}}</small>)</h3>
+                        <button (click)="alertCrearHospital()" class="btn waves-effect waves-light btn-rounded btn-primary float-right">
+                            <i class="fa fa-plus"> Agregar</i>
+                        </button>
+                
+            
+
+            </div>
+            <div class="card-body">
+                
+
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Herramientas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let hospital of hospitales">
+                            <td class='w70'>
+                                <img (click)="mostrarModal( hospital )" [src]="hospital.img | imagen:'hospital' " class="img-50 img-circle pointer">
+                            </td>
+                            <td>
+                                <input #input 
+                                style="text-transform:uppercase;"
+                                type="text" class="form-control" 
+                                [(ngModel)]="hospital.nombre" 
+                                placeholder="Nombre del hospital ...">
+                            </td>
+                            <td>
+                                <button (click)="guardarHospital( hospital )" class="btn btn-primary" >
+                                    <i class="fa fa-save"></i>
+                                </button>
+                                <button (click)="borrarHospital( hospital )" class="btn btn-danger">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                    <button (click)="cambiarDesde(-5)" class="btn btn-secondary" [disabled]="desde<5">
+                        Anteriores
+                    </button>
+                    <button (click)="cambiarDesde(5)" class="btn btn-secondary" [disabled]="desde+5>=totalRegistros"> 
+                        Siguientes
+                    </button>
+
+            </div>
+        </div>
+    </div>
+</div>

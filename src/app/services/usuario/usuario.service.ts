@@ -20,10 +20,63 @@ export class UsuarioService {
     public router: Router,
     public _subirArchivoService: SubirArchivoService
     ) {
+      
+      this.cargarStorage();
+      
+    }
+    
+    
+    // =========================================================
+    // CARGAR USUARIOS EN MANTENEDOR DE USUARIOS
+    // =========================================================
+    
+    cargarUsuarios( desde: number = 0 ){
+      const url = URL_SERVICIOS + '/usuario?desde=' + desde;
+    
+      return this.http.get( url);
+    }
+    
+    // =========================================================
+    // BUSCAR USUARIOS PARA EL MANTENEDOR DE USUARIOS
+    // =========================================================
+    
+    buscarUsuarios( termino: string ) {
+    
+      const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
+      return this.http.get( url ).pipe(
+        map( (resp: any) => resp.usuarios )
+      );
+    
+    }
+    
+    // =========================================================
+    // ELIMINAR USUARIO EN MANTENEDOR DE USAURIO
+    // =========================================================
+    
+    
+    borrarUsuario( id: string ){
+    
+    
+      let url = URL_SERVICIOS + '/usuario/' + id;
+      url += '?token=' + this.token;
+      return this.http.delete( url )
+      .pipe(
+        map( resp => {
+    
+          Swal.fire(
+            'Eliminado!',
+            `El usuario ha sido eliminado`,
+            'success'
+          );
+          return true;
+        }
+        )
+      );
+    }
 
-    this.cargarStorage();
-
-  }
+  // =========================================================
+  // STORAGE
+  // =========================================================  
 
   cargarStorage() {
 
@@ -37,22 +90,26 @@ export class UsuarioService {
     }
   }
 
-  estaLogueado() {
-
-    return ( this.token.length > 5 ) ? true : false ;
-
-  }
-
+  
   guardarStorage( id: string, token: string, usuario: Usuario){
-
-        localStorage.setItem('id', id );
-        localStorage.setItem('token', token );
-        localStorage.setItem('usuario', JSON.stringify( usuario ));
-
-        this.usuario = usuario;
-        this.token = token;
-
+    
+    localStorage.setItem('id', id );
+    localStorage.setItem('token', token );
+    localStorage.setItem('usuario', JSON.stringify( usuario ));
+    
+    this.usuario = usuario;
+    this.token = token;
+    
   }
+
+  // =========================================================
+  // VALIDACION DE TOKEN - MEJORAR
+  // =========================================================
+      estaLogueado() {
+    
+        return ( this.token.length > 5 ) ? true : false ;
+    
+      }
 
   // =========================================================
   // CREAR USUARIO
@@ -185,55 +242,6 @@ login( usuario: Usuario, recuerdame: boolean= false ){
       })
     );
 
-}
-
-
-// =========================================================
-// CARGAR USUARIOS EN MANTENEDOR DE USUARIOS
-// =========================================================
-
-cargarUsuarios( desde: number = 0 ){
-  const url = URL_SERVICIOS + '/usuario?desde=' + desde;
-
-  return this.http.get( url);
-}
-
-// =========================================================
-// BUSCAR USUARIOS PARA EL MANTENEDOR DE USUARIOS
-// =========================================================
-
-buscarUsuarios( termino: string ) {
-
-  const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
-  return this.http.get( url ).pipe(
-    map( (resp: any) => resp.usuarios )
-  );
-
-}
-
-// =========================================================
-// ELIMINAR USUARIO EN MANTENEDOR DE USAURIO
-// =========================================================
-
-
-borrarUsuario( id: string ){
-
-
-  let url = URL_SERVICIOS + '/usuario/' + id;
-  url += '?token=' + this.token;
-  return this.http.delete( url )
-  .pipe(
-    map( resp => {
-
-      Swal.fire(
-        'Eliminado!',
-        `El usuario ha sido eliminado`,
-        'success'
-      );
-      return true;
-    }
-    )
-  );
 }
 
 
