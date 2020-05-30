@@ -25,3 +25,19 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+##Para la version 2, tendriamos ya generar los archivos para produccion (DIST) #usamos los siguiente comandos:
+
+ng build --prod --aot
+
+Con el flag "--prod" deberia optimizar el codigo para produccion pero puedes intentar indicar explicitamente al CLI que debe hacerlo, con el flag:
+
+ng build --prod --build-optimizer
+
+o
+
+ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer
+
+npm install --global http-server
+
+http-server -o -p4200
