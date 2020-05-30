@@ -15,56 +15,56 @@ export class UsuarioService {
 
   usuario: Usuario;
   token: string;
-  menu: any[] = []; 
+  menu: any[] = [];
 
   constructor(
     public http: HttpClient,
     public router: Router,
     public _subirArchivoService: SubirArchivoService
     ) {
-      
+
       this.cargarStorage();
-      
+
     }
-    
-    
+
+
     // =========================================================
     // CARGAR USUARIOS EN MANTENEDOR DE USUARIOS
     // =========================================================
-    
+
     cargarUsuarios( desde: number = 0 ){
       const url = URL_SERVICIOS + '/usuario?desde=' + desde;
-    
+
       return this.http.get( url);
     }
-    
+
     // =========================================================
     // BUSCAR USUARIOS PARA EL MANTENEDOR DE USUARIOS
     // =========================================================
-    
+
     buscarUsuarios( termino: string ) {
-    
+
       const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
       return this.http.get( url ).pipe(
         map( (resp: any) => resp.usuarios )
       );
-    
+
     }
-    
+
     // =========================================================
     // ELIMINAR USUARIO EN MANTENEDOR DE USAURIO
     // =========================================================
-    
-    
+
+
     borrarUsuario( id: string ){
-    
-    
+
+
       let url = URL_SERVICIOS + '/usuario/' + id;
       url += '?token=' + this.token;
       return this.http.delete( url )
       .pipe(
         map( resp => {
-    
+
           Swal.fire(
             'Eliminado!',
             `El usuario ha sido eliminado`,
@@ -78,7 +78,7 @@ export class UsuarioService {
 
   // =========================================================
   // STORAGE
-  // =========================================================  
+  // =========================================================
 
   cargarStorage() {
 
@@ -94,29 +94,53 @@ export class UsuarioService {
     }
   }
 
-  
+
   guardarStorage( id: string, token: string, usuario: Usuario, menu: any){
 
-    
-    
+
+
     localStorage.setItem('id', id );
     localStorage.setItem('token', token );
     localStorage.setItem('usuario', JSON.stringify( usuario ));
     localStorage.setItem('menu', JSON.stringify(menu));
-    
+
     this.usuario = usuario;
     this.token = token;
     this.menu = menu;
-    
+
+  }
+
+  // =========================================================
+  // RENUEVA TOKEN
+  // =========================================================
+
+  renuevaToken() {
+
+    let url = URL_SERVICIOS + '/login/renuevatoken';
+    url += '?token=' + this.token;
+
+    return this.http.get(url)
+    .pipe( map( (resp: any) => {
+      this.token = resp.token;
+      localStorage.setItem('token', this.token );
+      console.log('TOKEN RENOVADO...');
+      
+      return true;
+    }), catchError( err => {
+      this.logout();
+      Swal.fire('No se pudo renovar token', 'No fue posible renovar token', 'error');
+      return throwError(err.message);
+    }));
+
   }
 
   // =========================================================
   // VALIDACION DE TOKEN - MEJORAR
   // =========================================================
       estaLogueado() {
-    
+
         return ( this.token.length > 5 ) ? true : false ;
-    
+
       }
 
   // =========================================================

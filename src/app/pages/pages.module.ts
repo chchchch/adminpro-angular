@@ -32,10 +32,11 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
 
 @NgModule({
     declarations: [
+        //PagesComponent,
+        //ModalUploadComponent,
         DashboardComponent,
         ProgressComponent,
         Graficas1Component,
-        PagesComponent,
         IncrementadorComponent,
         GraficoDonaComponent,
         AccountSettingsComponent,
@@ -45,7 +46,6 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
         UsuariosComponent,
         HospitalesComponent,
         MedicosComponent,
-        ModalUploadComponent,
         MedicoComponent,
         BusquedaComponent
     ],
@@ -53,7 +53,7 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
         DashboardComponent,
         ProgressComponent,
         Graficas1Component,
-        PagesComponent,
+        //PagesComponent,
         IncrementadorComponent,
         GraficoDonaComponent
     ],
@@ -62,7 +62,6 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
         PAGES_ROUTES,
         FormsModule,
         ChartsModule,
-        BrowserModule,
         PipesModule,
         CommonModule
     ]

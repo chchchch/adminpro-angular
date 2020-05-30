@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PipesModule } from '../pipes/pipes.module';
 import { ForbiddonComponent } from './forbiddon/forbiddon.component';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 
 
 @NgModule({
@@ -14,14 +15,17 @@ import { ForbiddonComponent } from './forbiddon/forbiddon.component';
         HeaderComponent,
         SidebarComponent,
         BreadcrumbsComponent,
-        NopagefoundComponent,
-        ForbiddonComponent
+        //NopagefoundComponent,
+        ForbiddonComponent,
+        ModalUploadComponent
     ],
     exports:[
         HeaderComponent,
         SidebarComponent,
         BreadcrumbsComponent,
-        NopagefoundComponent
+        //NopagefoundComponent,
+        ForbiddonComponent,
+        ModalUploadComponent
     ],
     imports:[
         RouterModule,
