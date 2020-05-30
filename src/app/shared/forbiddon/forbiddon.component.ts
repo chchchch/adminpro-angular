@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 declare function init_plugins();
 
 @Component({
-  selector: 'app-nopagefound',
-  templateUrl: './nopagefound.component.html',
+  selector: 'app-forbiddon',
+  templateUrl: './forbiddon.component.html',
   styles: [`
   .error-box {
-  height: 100%;
-  position: fixed;
+  height: 70%;
+  position: absolute;
   background: url(../../../assets/images/background/error-bg.jpg) no-repeat center center #fff;
   width: 100%; }
   .error-box .footer {
@@ -16,8 +16,6 @@ declare function init_plugins();
     left: 0px;
     right: 0px; }
 
-.error-body {
-  padding-top: 5%; }
   .error-body h1 {
     font-size: 210px;
     font-weight: 900;
@@ -26,7 +24,7 @@ declare function init_plugins();
 
   ` ]
 })
-export class NopagefoundComponent implements OnInit {
+export class ForbiddonComponent implements OnInit {
 
   anio: number = new Date().getFullYear();
 

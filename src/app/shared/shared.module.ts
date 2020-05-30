@@ -6,6 +6,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PipesModule } from '../pipes/pipes.module';
+import { ForbiddonComponent } from './forbiddon/forbiddon.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { PipesModule } from '../pipes/pipes.module';
         HeaderComponent,
         SidebarComponent,
         BreadcrumbsComponent,
-        NopagefoundComponent
+        NopagefoundComponent,
+        ForbiddonComponent
     ],
     exports:[
         HeaderComponent,
