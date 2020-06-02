@@ -26,7 +26,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-##Para la version 2, tendriamos ya generar los archivos para produccion (DIST) #usamos los siguiente comandos:
+### Para la version 2, tendriamos ya generar los archivos para produccion (DIST) #usamos los siguiente comandos:
 
 ng build --prod --build-optimizer
 
@@ -45,3 +45,6 @@ npm install --global http-server
 http-server -o -p4200
 
 ##### Luego ingresar con localhost:4200 
+
+
+Finalizado
