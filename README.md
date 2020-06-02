@@ -45,6 +45,3 @@ npm install --global http-server
 http-server -o -p4200
 
 ##### Luego ingresar con localhost:4200 
-
-
-Finalizado
