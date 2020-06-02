@@ -41,3 +41,15 @@ ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --build
 npm install --global http-server
 
 http-server -o -p4200
+
+## Funciona con:
+
+ng build --prod --build-optimizer
+
+npm install --global http-server
+
+##### El http Server ejecutarlo dentro de la carpeta adminpro
+
+http-server -o -p4200
+
+##### Luego ingresar con localhost:4200 
